@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBookmark, removeBookmark } from '../redux/slice/BookmarkSlice';
+import { Star, StarOff } from "lucide-react";
 
 
 const CurrentWeather = () => {
@@ -9,8 +11,11 @@ const CurrentWeather = () => {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
-  const { location, current: { condition, temp_c, feelslike_c } } = currentWeather;
+  const dispatch = useDispatch();
+  const bookmarks = useSelector(state => state.bookmarks.bookmarks);
+  const isBookmarked = bookmarks.some(b => b.url === currentWeather.location?.name);
 
+  const { location, current: { condition, temp_c, feelslike_c } } = currentWeather;
   const today = currentWeather.forecast.forecastday[0];
   const weatherIcon = `https:${condition.icon}`;
 
@@ -56,12 +61,33 @@ const CurrentWeather = () => {
 
   return (
 
-    <div className="w-full  bg-white/10 rounded-2xl p-8 shadow-xl text-center backdrop-blur-sm">
+    <div className="w-full   bg-white/10 rounded-2xl p-8 shadow-xl text-center backdrop-blur-sm text-white">
+
+      <div className='flex text-right absolute top-5 right-5'>
+        <button
+          onClick={() =>
+            isBookmarked
+              ? dispatch(removeBookmark({ url: currentWeather.location?.name }))
+              : dispatch(addBookmark({
+                name: currentWeather.location?.name,
+                region: currentWeather.location?.region,
+                country: currentWeather.location?.country,
+                url: currentWeather.location?.name,
+                current: currentWeather.current
+              }))
+          }
+          className=""
+          title={isBookmarked ? "Remove Bookmark" : "Add Bookmark"}
+        >
+          {isBookmarked ? <Star className="text-yellow-400" /> : <StarOff className="text-white/60" />}
+        </button>
+      </div>
       {/* Location & Time */}
       <div className="text-lg md:text-xl">{currentWeather.location.localtime}</div>
       <div className="text-2xl md:text-3xl font-bold mt-1">
         {location.name}, {location.region}
       </div>
+
 
       {/* Weather Icon & Temperature */}
       <div className="my-8 flex flex-col items-center">
@@ -72,7 +98,7 @@ const CurrentWeather = () => {
       </div>
 
       {/* Every Hour Details */}
-     
+
       <div className="overflow-x-scroll scrollbar-hide"
         ref={scrollRef}
         onMouseDown={handleMouseDown}

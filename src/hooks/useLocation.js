@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setWeather } from "../redux/slice/WeatherSlice";
+import { setSearchHistory } from "../redux/slice/SearchHistory";
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 const useLocation = () => {
@@ -67,10 +68,28 @@ const useLocation = () => {
   }
 
   const handleLocationClick = async (locationData) => {
-    console.log("Location data clicked:", locationData);
+    // Fetch the latest weather for the selected location
+    const res = await fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${locationData.url}&days=7&aqi=yes&alerts=no`
+    );
+    const data = await res.json();
+    
+    // Add current weather to locationData
+    const locationDataWithCurrent = {
+      ...locationData,
+      current: {
+        temp_c: data.current.temp_c,
+        feelslike_c: data.current.feelslike_c,
+        condition: data.current.condition,
+        humidity: data.current.humidity,
+        last_updated: data.current.last_updated,
+      }
+    };
+
+    dispatch(setSearchHistory({ locationData: locationDataWithCurrent }));
     const newLocation = locationData.url;
-    setLocation(newLocation); // this will still trigger the useEffect
-    fetchCurrentWeather(newLocation); // make sure fresh data is fetched immediately
+    setLocation(newLocation);
+    fetchCurrentWeather(newLocation); 
   };
 
   useEffect(() => {
