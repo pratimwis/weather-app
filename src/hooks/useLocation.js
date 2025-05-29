@@ -36,7 +36,7 @@ const useLocation = () => {
   const fetchCurrentWeather = async (loc) => {
     try {
       const res = await fetch(
-        `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${loc}&days=7&aqi=yes&alerts=no
+        `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${loc}&days=7&aqi=yes&alerts=no
 `
       );
       const data = await res.json();
@@ -56,7 +56,7 @@ const useLocation = () => {
 
   const fetchLocationBasedOnInput = async (input) => {
     try {
-      const response = await fetch(`http://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=${input}`);
+      const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=${input}`);
       if (response.status !== 200) {
         return;
       }
@@ -70,7 +70,7 @@ const useLocation = () => {
   const handleLocationClick = async (locationData) => {
     // Fetch the latest weather for the selected location
     const res = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${locationData.url}&days=7&aqi=yes&alerts=no`
+      `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${locationData.url}&days=7&aqi=yes&alerts=no`
     );
     const data = await res.json();
     
