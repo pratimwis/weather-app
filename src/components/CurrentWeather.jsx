@@ -99,7 +99,7 @@ const CurrentWeather = () => {
 
       {/* Every Hour Details */}
 
-      <div className="overflow-x-scroll scrollbar-hide"
+      <div className="overflow-x-scroll scrollbar-hide cursor-grab active:cursor-grabbing select-none"
         ref={scrollRef}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
