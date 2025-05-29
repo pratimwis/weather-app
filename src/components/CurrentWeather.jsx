@@ -1,0 +1,107 @@
+import React, { useRef, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
+
+const CurrentWeather = () => {
+  const currentWeather = useSelector((state) => state.weather)
+  const scrollRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const { location, current: { condition, temp_c, feelslike_c } } = currentWeather;
+
+  const today = currentWeather.forecast.forecastday[0];
+  const weatherIcon = `https:${condition.icon}`;
+
+  const formatTo12Hour = (timeStr) => {
+    const date = new Date(timeStr);
+    return date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    // Find the current hour index
+    const now = new Date(currentWeather.location.localtime);
+    const currentHourIdx = today.hour.findIndex(
+      (h) => new Date(h.time).getHours() === now.getHours()
+    );
+    // Scroll to the current hour card
+    if (scrollRef.current && currentHourIdx > 0) {
+      const cardWidth = 112; // min-w-[100px] + gap, adjust if needed
+      scrollRef.current.scrollLeft = currentHourIdx * cardWidth;
+    }
+  }, [currentWeather.location.localtime, today.hour]);
+
+  return (
+
+    <div className="w-full  bg-white/10 rounded-2xl p-8 shadow-xl text-center backdrop-blur-sm">
+      {/* Location & Time */}
+      <div className="text-lg md:text-xl">{currentWeather.location.localtime}</div>
+      <div className="text-2xl md:text-3xl font-bold mt-1">
+        {location.name}, {location.region}
+      </div>
+
+      {/* Weather Icon & Temperature */}
+      <div className="my-8 flex flex-col items-center">
+        <img src={weatherIcon} alt={condition.text} className="w-20 h-20" />
+        <div className="text-md md:text-lg mt-3">{condition.text}</div>
+        <div className="text-6xl font-light mt-1">{temp_c}°C</div>
+        <div className="text-sm text-gray-200 mt-1">Feels like {feelslike_c}°C</div>
+      </div>
+
+      {/* Every Hour Details */}
+     
+      <div className="overflow-x-scroll scrollbar-hide"
+        ref={scrollRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+      >
+        <div className="flex gap-4 min-w-fit">
+          {today.hour.map((hour, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col items-center min-w-[100px] bg-white/10 p-3 rounded-xl border border-white/10"
+            >
+              <span className="text-sm font-medium mb-1 ">
+                {formatTo12Hour(hour.time)}
+              </span>
+              <img
+                src={hour.condition.icon}
+                alt={hour.condition.text}
+                className="w-10 h-10 mb-1"
+              />
+              <span className="text-base font-semibold">{hour.temp_c}°C</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+  );
+};
+
+export default CurrentWeather;
