@@ -27,7 +27,7 @@ const SearchLocation = () => {
           <input
             type="text"
             value={searchLocation}
-            className="rounded-full pl-8 p-2 bg-transparent border-none outline-none focus:ring-0 flex-1 text-sm placeholder-white/70 placeholder:font-semibold"
+            className="rounded-full pl-8 p-1 bg-transparent border-none outline-none focus:ring-0 flex-1 text-sm placeholder-white/70 placeholder:font-semibold"
             placeholder="Enter location"
             onChange={(e) => {
               handleChange(e.target.value)
@@ -46,7 +46,7 @@ const SearchLocation = () => {
                     onClick={() => {
                       setLocations([]);
                       handleLocationClick(location);
-                      setSearchLocation("");
+                      setSearchLocation(location.name);
                     }}
                   >
                     {location.name}

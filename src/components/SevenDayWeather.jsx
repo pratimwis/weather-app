@@ -6,7 +6,7 @@ const SevenDayWeather = () => {
   const forecast = useSelector((state) => state.weather.forecast.forecastday)
 
   return (
-    <div className="w-full h-full min-h-[520px] bg-white/10 rounded-2xl p-8 shadow-xl text-white backdrop-blur-sm overflow-hidden flex flex-col justify-center">
+    <div className="w-full h-full min-h-[500px] bg-white/10 rounded-2xl p-8 shadow-xl text-white backdrop-blur-sm overflow-hidden flex flex-col justify-center">
       <h2 className="text-xl font-bold mb-6 text-center tracking-wide drop-shadow-lg">7-Day Forecast</h2>
       <div className="flex-1 flex flex-col justify-center">
         {forecast.map((dayForecast, index) => {

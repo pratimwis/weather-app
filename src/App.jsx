@@ -24,14 +24,14 @@ export default function App() {
         <SearchLocation />
         <HistoryBookmark/>
       </div>
-      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
+      <div className=" max-w-6xl grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
         <div className="md:col-span-5 col-span-1">
           <CurrentWeather />
         </div>
         <div className="md:col-span-4 col-span-1 flex flex-col gap-6 md:gap-8">
           <SevenDayWeather />
         </div>
-        <div className="md:col-span-3 col-span-1 flex flex-col gap-4 md:gap-10">
+        <div className="md:col-span-3 col-span-1 flex flex-col gap-4 md:gap-6 min-h-[400px]">
           <SunriseSection />
           <MoonriseSection />
           <AirFlow />

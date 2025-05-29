@@ -61,9 +61,9 @@ const CurrentWeather = () => {
 
   return (
 
-    <div className="w-full   bg-white/10 rounded-2xl p-8 shadow-xl text-center backdrop-blur-sm text-white">
+    <div className="h-[500px] max-w-md  bg-white/10 rounded-2xl p-8 shadow-xl text-center backdrop-blur-sm text-white">
 
-      <div className='flex text-right absolute top-5 right-5'>
+      <div className='flex text-right absolute top-5 right-5 '>
         <button
           onClick={() =>
             isBookmarked
@@ -93,7 +93,7 @@ const CurrentWeather = () => {
       <div className="my-8 flex flex-col items-center">
         <img src={weatherIcon} alt={condition.text} className="w-20 h-20" />
         <div className="text-md md:text-lg mt-3">{condition.text}</div>
-        <div className="text-6xl font-light mt-1">{temp_c}°C</div>
+        <div className="text-5xl font-light mt-1">{temp_c}°C</div>
         <div className="text-sm text-gray-200 mt-1">Feels like {feelslike_c}°C</div>
       </div>
 
