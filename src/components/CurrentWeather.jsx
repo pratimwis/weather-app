@@ -54,7 +54,7 @@ const CurrentWeather = () => {
     );
     // Scroll to the current hour card
     if (scrollRef.current && currentHourIdx > 0) {
-      const cardWidth = 112; // min-w-[100px] + gap, adjust if needed
+      const cardWidth = 112; 
       scrollRef.current.scrollLeft = currentHourIdx * cardWidth;
     }
   }, [currentWeather.location.localtime, today.hour]);

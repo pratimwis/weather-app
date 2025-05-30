@@ -1,17 +1,30 @@
 import axios from "axios";
 
-const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api',  
-  timeout: 10000, // 10 seconds timeout
+
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+
+const API = axios.create({
+  baseURL: import.meta.env.VITE_WEATHER_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  },
+    "Content-Type": "application/json",
+  },  
 });
 
-axiosInstance.interceptors.request.use(
- 
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+
+
+
+export default API;
+
+
+export const currentWeatherApi = (latAndLon) => {
+  return API.get("/forecast.json", {
+    params: {
+      key: API_KEY,
+      q: latAndLon,
+      days: 7,
+      aqi: "yes",
+      alerts: "no",
+    },
+  });
+}
+

@@ -1,5 +1,4 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { FiAlertCircle } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import useLocation from "../hooks/useLocation";
 
@@ -23,8 +22,6 @@ const SearchHistoryModal = ({ isOpen, setIsOpen }) => {
             onClick={(e) => e.stopPropagation()}
             className="bg-gradient-to-br from-[#002f4b] to-[#00b4db] text-white p-6 rounded-lg w-full max-w-lg shadow-xl cursor-default relative overflow-hidden"
           >
-            {/* <FiAlertCircle className="text-white/10 rotate-12 text-[250px] absolute z-0 -top-24 -left-24" /> */}
-
             <div className="relative z-10">
               <div className="text-left p-4 mb-10 space-y-4">
                 {searchHistory && searchHistory.length > 0 ? (
@@ -83,6 +80,7 @@ const SearchHistoryModal = ({ isOpen, setIsOpen }) => {
         </motion.div>
       )}
     </AnimatePresence>
+    
   );
 };
 

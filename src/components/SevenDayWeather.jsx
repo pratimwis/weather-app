@@ -4,6 +4,14 @@ import { useSelector } from 'react-redux'
 
 const SevenDayWeather = () => {
   const forecast = useSelector((state) => state.weather.forecast.forecastday)
+  // let avarageRain=0 ,avarageHighTemp = 0;
+  // forecast.map((item)=>{
+  //   avarageHighTemp += item.day.maxtemp_c;
+  //   avarageRain += item.day.daily_chance_of_rain
+
+  // });
+  // console.log("avarage", forecast)
+  
 
   return (
     <div className="w-full h-full min-h-[500px] bg-white/10 rounded-2xl p-8 shadow-xl text-white backdrop-blur-sm overflow-hidden flex flex-col justify-center">
@@ -16,7 +24,9 @@ const SevenDayWeather = () => {
             ? 'Today'
             : new Date(date).toLocaleDateString('en-US', { weekday: 'long' })
 
+
           return (
+          
             <div
               key={index}
               className="flex items-center justify-between border-b border-white/10 py-3 last:border-b-0"
@@ -44,9 +54,21 @@ const SevenDayWeather = () => {
               <div className="text-sm font-semibold w-16 text-right">
                 {Math.round(maxtemp_c)}° <span className="text-white/60">{Math.round(mintemp_c)}°</span>
               </div>
+              
             </div>
+            
+            
+            
           )
         })}
+        {/* <div className=''>
+          <p>
+          Avarage temp : {avarageHighTemp/forecast.length}
+          </p>
+          <p> Avarage Rain :{avarageRain / forecast.length}</p>
+         
+        </div> */}
+        
       </div>
     </div>
   )
