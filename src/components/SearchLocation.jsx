@@ -1,4 +1,4 @@
-import { SearchIcon } from 'lucide-react'
+import { HomeIcon, SearchIcon } from 'lucide-react'
 import React, { useState } from 'react'
 import useLocation from "../hooks/useLocation"
 
@@ -21,7 +21,17 @@ const SearchLocation = () => {
 
 
   return (
-
+      <>
+      <div onClick={()=>{
+        window.location.reload();
+      }}>
+        <button
+          className="p-2 rounded-xl bg-white/10 hover:bg-white/20 transition shadow-md flex items-center justify-center mr-4 cursor-pointer text-white"
+          title="Go Home"
+        >
+          <HomeIcon className="w-7 h-7" />
+        </button>
+      </div>
       <div className="relative w-full max-w-md">
         <div className="bg-white/10 rounded-full p-2 text-white flex items-center shadow-md">
           <input
@@ -59,6 +69,7 @@ const SearchLocation = () => {
           )}
         </div>
       </div>
+    </>
   )
 }
 

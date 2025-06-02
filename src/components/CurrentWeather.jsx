@@ -76,7 +76,7 @@ const CurrentWeather = () => {
                 current: currentWeather.current
               }))
           }
-          className=""
+          className="cursor-pointer"
           title={isBookmarked ? "Remove Bookmark" : "Add Bookmark"}
         >
           {isBookmarked ? <Star className="text-yellow-400" /> : <StarOff className="text-white/60" />}
