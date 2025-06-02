@@ -10,9 +10,6 @@ const API = axios.create({
   },  
 });
 
-
-
-
 export default API;
 
 
@@ -21,6 +18,27 @@ export const currentWeatherApi = (latAndLon) => {
     params: {
       key: API_KEY,
       q: latAndLon,
+      days: 7,
+      aqi: "yes",
+      alerts: "no",
+    },
+  });
+}
+
+export const searchLocationApi = (input) => {
+  return API.get("/search.json", {
+    params: {
+      key: API_KEY,
+      q: input,
+    },
+  });
+}
+
+export const searchListClickApi = (url) => {
+  return API.get("/forecast.json", {
+    params: {
+      key: API_KEY,
+      q: url,
       days: 7,
       aqi: "yes",
       alerts: "no",

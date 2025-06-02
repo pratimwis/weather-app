@@ -36,7 +36,27 @@ export default function App() {
           <MoonriseSection />
           <AirFlow />
         </div>
+        
       </div>
+      {/* Divider */}
+      <div className="w-full max-w-6xl border-t border-white/10 mt-6 mb-4"></div>
+      {/* Copyright Section */}
+      <footer className="w-full max-w-6xl flex flex-col items-center gap-1 text-xs text-white/60 pb-4">
+        <span>© 2025 WeatherApp by <span className="text-white font-semibold">WIS-Rana</span></span>
+        <span>
+          Data provided by{" "}
+          <a
+            href="https://www.weatherapi.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-blue-200"
+          >
+            WeatherAPI.com
+          </a>
+        </span>
+        
+      </footer>
     </div>
+    
   );
 }
