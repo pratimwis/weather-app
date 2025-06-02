@@ -32,7 +32,7 @@ const SearchLocation = () => {
           <HomeIcon className="w-7 h-7" />
         </button>
       </div>
-      <div className="relative w-full max-w-md">
+      <div className="relative w-full md:max-w-md max-w-44">
         <div className="bg-white/10 rounded-full p-2 text-white flex items-center shadow-md">
           <input
             type="text"
@@ -43,7 +43,7 @@ const SearchLocation = () => {
               handleChange(e.target.value)
             }}
           />
-          <SearchIcon className=" w-5 h-5 cursor-pointer hover:text-blue-300 transition mr-2" />
+          <SearchIcon className=" md:w-5 md:h-5  cursor-pointer hover:text-blue-300 transition mr-2" />
         </div>
         <div className="relative px-10">
           {locations && locations.length > 0 && (
